@@ -95,6 +95,8 @@ def entrenamiento_GAN(dim_z, epochs, batch_size):
     generador_optimizer = tf.keras.optimizers.Adam(1e-4)
     discriminador_optimizer = tf.keras.optimizers.Adam(1e-4)
 
+    ruido_plot = obtener_ruido(numero_muestra=25, dim_z=dim_z)
+
     for epoch in tqdm.tqdm(range(epochs)):
         generador_perdida = 0
         discriminador_perdida = 0
@@ -123,6 +125,8 @@ def entrenamiento_GAN(dim_z, epochs, batch_size):
             generador_perdida += perdida_generador
             discriminador_perdida += perdida_discriminador
             denominador += 1
+
+            mostrar_imagenes(generador(ruido_plot).numpy(), num_images=25, size=(28, 28))
 
         print(f"Epoch: {epoch}, perdida generador: {generador_perdida / denominador}, perdida discriminador: {discriminador_perdida / denominador}")
 
