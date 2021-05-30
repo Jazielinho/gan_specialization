@@ -98,6 +98,7 @@ def entrenamiento_GAN(dim_z, epochs, batch_size):
     for epoch in tqdm.tqdm(range(epochs)):
         generador_perdida = 0
         discriminador_perdida = 0
+        denominador = 0
 
         for imagenes_batch, _ in dataset:
             numero_muestra = len(imagenes_batch)
@@ -121,8 +122,9 @@ def entrenamiento_GAN(dim_z, epochs, batch_size):
 
             generador_perdida += perdida_generador
             discriminador_perdida += perdida_discriminador
+            denominador += 1
 
-        print(f"Epoch: {epoch}, perdida generador: {generador_perdida}, perdida discriminador: {discriminador_perdida}")
+        print(f"Epoch: {epoch}, perdida generador: {generador_perdida / denominador}, perdida discriminador: {discriminador_perdida / denominador}")
 
     return generador, discriminador
 
